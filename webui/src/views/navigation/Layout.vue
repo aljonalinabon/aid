@@ -8,7 +8,7 @@
       </v-row>
       <v-row>
         <v-col class="col-12">
-          <v-card outlined tile>
+          <v-card tile style="padding: 20px">
             <Body></Body>
           </v-card>
         </v-col>

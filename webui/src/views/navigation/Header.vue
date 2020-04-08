@@ -1,8 +1,9 @@
 <template>
   <div class="header">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <h1>Kyocera Application Info Depot</h1>
+      <!-- <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link> -->
     </div>
   </div>
 </template>
