@@ -35,6 +35,10 @@ const applications = [
       {
         name: 'ID card scan',
         min_hypas_api: '3.6'
+      },
+      {
+        name: 'Scanning',
+        min_hypas_api: '1'
       }
     ],
     functions: [

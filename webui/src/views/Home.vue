@@ -1,18 +1,18 @@
 <template>
   <div class="home">
-    <SearchApplication />
+    <ApplicationToolbar />
     <ApplicationList />
   </div>
 </template>
 
 <script>
-import SearchApplication from '../components/application/SearchApplication';
+import ApplicationToolbar from '../components/application/ApplicationToolbar';
 import ApplicationList from '../components/application/ApplicationList';
 
 export default {
   name: 'Home',
   components: {
-    SearchApplication,
+    ApplicationToolbar,
     ApplicationList
   }
 }

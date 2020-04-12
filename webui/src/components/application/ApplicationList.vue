@@ -3,22 +3,22 @@
     <template v-slot:default>
       <thead>
         <tr>
-          <th class="text-left">Name</th>
-          <th class="text-left">Customer</th>
-          <th class="text-left">Sales company</th>
-          <th class="text-left">Features</th>
-          <th class="text-left">Date released</th>
-          <th class="text-left">Latest version</th>
+          <th >Name</th>
+          <th >Customer</th>
+          <th >Sales company</th>
+          <th >Features</th>
+          <th >Date released</th>
+          <th >Latest version</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="app in applications" :key="app.name">
+        <tr v-for="app in allApplications" :key="app.name">
           <td>{{ app.name }}</td>
-          <td>{{ app.customer }}</td>
-          <td>{{ app.sc }}</td>          
-          <td> <span class="feature-item" v-for="feature in app.features" :key="feature"> {{feature}}</span> </td>
-          <td>{{ app.date }}</td>          
-          <td>{{ app.latest_version }}</td>
+          <td>{{ app.customer_name }}</td>
+          <td>{{ app.sales_company }}</td>          
+          <td> <span class="feature-item" v-for="feature in app.features" :key="feature"> {{ feature.name }}</span> </td>
+          <td>{{ app.version | latestRelease }}</td>          
+          <td>{{ app.version | latestVersion }}</td>
         </tr>
       </tbody>
     </template>
@@ -26,57 +26,38 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+import moment from 'moment'
+
 export default {
   name: 'ApplicationList',
-  data() {
-    return {
-      applications: []
-    }
+  methods: {
+    ...mapActions(['fetchApplications'])
   },
+  computed: mapGetters(['allApplications']),
   created() {
-    this.applications = [
-      {
-        name: 'ID card scan',
-        customer: 'KDAS',
-        sc: 'KDAS',
-        features: [
-          "Scan ID card",
-          "Send to FTP"
-        ],
-        date: "1/20/2020",
-        latest_version: 'E000.001.200.9000'
-      },
-      
-      {
-        name: 'Multicrop',
-        customer: 'KDAS',
-        sc: 'KDAS',
-        features: [
-          "Multicrop",
-          "Send to FTP",
-          "Send to SMB",
-          "Send to Email"
-        ],
-        date: "1/20/2020",
-        latest_version: 'E000.001.200.9000'
-      },
-      {
-        name: 'ID card scan',
-        customer: 'KDAS',
-        sc: 'KDAS',
-        features: [
-          "Scan ID card",
-          "Send to FTP"
-        ],
-        date: "1/20/2020",
-        latest_version: 'E000.001.200.9000'
+    this.fetchApplications();
+  },
+  filters: {
+    latestVersion: function(array) {
+      if(array || array.length != 0) {
+        return array[array.length-1].number;
       }
-    ]
+    },
+    latestRelease : function(array) {
+      if(array || array.length != 0) {
+        const date = array[array.length-1].date;
+        return moment(date).format('MM/DD/YYYY');
+      }
+    }
   }
 }
 </script>
 
 <style>
+th {
+  text-align: center !important;
+}
 .feature-item {
   background: #bbb;
   color: white;

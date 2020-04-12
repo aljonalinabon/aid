@@ -1,6 +1,6 @@
 <template>
   <div class="layout">
-    <v-container class="grey lighten-1">
+    <v-container class="grey lighten-2">
       <v-row>
         <v-col class="col-12">
           <Header></Header>
