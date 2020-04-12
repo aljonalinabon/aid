@@ -23,7 +23,7 @@ export default {
   name: 'SearchApplication',
   methods: {
     gotoAddApplication(){
-      this.$router.push({name: 'Application'});
+      this.$router.push({name: 'AppInfoForm'});
     }
   }
 }

@@ -1,38 +1,62 @@
 <template>
-  <v-simple-table>
-    <template v-slot:default>
-      <thead>
-        <tr>
-          <th >Name</th>
-          <th >Customer</th>
-          <th >Sales company</th>
-          <th >Features</th>
-          <th >Date released</th>
-          <th >Latest version</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="app in allApplications" :key="app.name">
-          <td>{{ app.name }}</td>
-          <td>{{ app.customer_name }}</td>
-          <td>{{ app.sales_company }}</td>          
-          <td> <span class="feature-item" v-for="feature in app.features" :key="feature"> {{ feature.name }}</span> </td>
-          <td>{{ app.version | latestRelease }}</td>          
-          <td>{{ app.version | latestVersion }}</td>
-        </tr>
-      </tbody>
-    </template>
-  </v-simple-table>
+  <div>
+    <v-simple-table>
+      <template v-slot:default>
+        <thead>
+          <tr>
+            <th >Name</th>
+            <th >Customer</th>
+            <th >Sales company</th>
+            <th >Features</th>
+            <th >Date released</th>
+            <th >Latest version</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="app in allApplications" :key="app.name" @click.stop="openAppInfoDialog(app)">
+            <td>{{ app.name }}</td>
+            <td>{{ app.customer_name }}</td>
+            <td>{{ app.sales_company }}</td>          
+            <td> <span class="feature-item" v-for="feature in app.features" :key="feature.name"> {{ feature.name }}</span> </td>
+            <td>{{ app.version | latestRelease }}</td>          
+            <td>{{ app.version | latestVersion }}</td>
+          </tr>
+        </tbody>
+      </template>
+    </v-simple-table>
+
+
+    <AppInfoView :dialog="show_appinfo_dialog" :app_info ="app_info" v-on:toggleDialog="toggleDialog"/>
+  </div>
 </template>
 
 <script>
+import AppInfoView from './AppInfoView'
 import { mapGetters, mapActions } from 'vuex'
 import moment from 'moment'
 
+
 export default {
   name: 'ApplicationList',
+  components: {
+    AppInfoView
+  },
+  data () {
+    return {
+      show_appinfo_dialog : false,
+      app_info: {}
+    }
+  },
   methods: {
-    ...mapActions(['fetchApplications'])
+    ...mapActions(['fetchApplications']),
+    openAppInfoDialog(app_info) {
+      this.show_appinfo_dialog = true;
+      this.app_info = app_info;
+      // this.show_appinfo_dialog.appinfo = app_info
+    },
+    toggleDialog(value){
+      this.show_appinfo_dialog = value;
+    }
   },
   computed: mapGetters(['allApplications']),
   created() {

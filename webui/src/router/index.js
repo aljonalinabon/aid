@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 import AppInfoForm from '../components/application/AppInfoForm';
+import AppInfoView from '../components/application/AppInfoView';
 
 Vue.use(VueRouter)
 
@@ -13,7 +14,7 @@ const routes = [
   },
   {
     path: '/application',
-    name: 'Application',
+    name: 'AppInfoForm',
     component: AppInfoForm,
     // children: [
     //   {
@@ -22,6 +23,11 @@ const routes = [
     //     component: AppInfoForm
     //   }
     // ]
+  },
+  {
+    path: '/applicationinfo',
+    name: 'Application',
+    component: AppInfoView,
   },
   {
     path: '/about',

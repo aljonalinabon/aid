@@ -53,6 +53,11 @@
         </v-tab-item>
       </v-tabs-items>
     </v-tabs>
+    <div style="width: 100%" class="d-flex flex-row">
+      <v-spacer></v-spacer>
+      <v-btn color="green darken-1" text @click="show_dialog = false">Save</v-btn>
+      <v-btn color="green darken-1" text @click="show_dialog = false">Cancel</v-btn>
+    </div>
   </div>
 </template>
 

@@ -17,14 +17,14 @@ const actions = {
     commit('setApplications', response.data);
   },
   
-  // async addTodo({ commit }, title) {
-  //   const response = await axios.post(
-  //     'https://jsonplaceholder.typicode.com/todos',
-  //     { title, completed: false }
-  //   );
+  async addApplication({ commit }, app_info) {
+    const response = await axios.post(
+      'http://localhost:5000/api/applications',
+      app_info
+    );
 
-  //   commit('newTodo', response.data);
-  // },
+    commit('newTodo', response.data);
+  },
   // async deleteTodo({ commit }, id) {
   //   await axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`);
 
@@ -58,7 +58,7 @@ const actions = {
 
 const mutations = {
   setApplications: (state, applications) => (state.applications = applications),
-  // newTodo: (state, todo) => state.todos.unshift(todo),
+  newApplication: (state, application) => state.applications.unshift(application),
   // removeTodo: (state, id) =>
   //   (state.todos = state.todos.filter(todo => todo.id !== id)),
   // updateTodo: (state, updTodo) => {
