@@ -3,10 +3,15 @@
     <v-card>
       <v-card-title>
         <span class="headline"> {{app_info.name}} </span>
+
       </v-card-title>
+        <div style="float:right">
+          <v-btn color="green darken-1" text @click="edit_application">Edit</v-btn>
+          <v-btn color="green darken-1" text @click="show_dialog = false">Cancel</v-btn>
+        </div>
       <v-card-text>
         
-        <v-container class="align-center grey lighten-5">
+        <v-container class="align-center ">
           <v-row>
             <v-col>
             <h3>Basic information</h3>
@@ -67,7 +72,10 @@
               Latest application version:
             </v-col>
             <v-col cols="8" class="pa-1 info-column-value">
-              {{app_info.version}} 
+              <div v-if="app_info.version && app_info.version.number">
+                <span> {{app_info.version.number}} </span>
+                <h6> {{app_info.version.date | latestRelease}} </h6> 
+              </div>
             </v-col>
           </v-row>
           <v-row>
@@ -77,7 +85,7 @@
               Base application:
             </v-col>
             <v-col cols="8" class="pa-1 info-column-value">
-              {{app_info.base_application}} 
+              <a v-if="app_info.base_application && app_info.base_application.name" :href="app_info.base_application.link">{{app_info.base_application.name}}</a>
             </v-col>
           </v-row>
           <v-row>
@@ -182,6 +190,8 @@
 </template>
 
 <script>
+import moment from 'moment'
+
 export default {
   name: 'AppInfoView',
   props: ['dialog', 'app_info'],
@@ -198,6 +208,12 @@ export default {
   methods: {
     edit_application() {
       this.$router.push({name: 'EditAppInfo', params: {id:this.app_info.id}})
+    }
+  },
+  filters: {
+    latestRelease : function(date) {
+      
+      return moment(date).format('MM/DD/YYYY');
     }
   }
 }

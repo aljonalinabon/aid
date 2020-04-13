@@ -18,8 +18,8 @@
             <td>{{ app.customer_name }}</td>
             <td>{{ app.sales_company }}</td>          
             <td> <span class="feature-item" v-for="feature in app.features" :key="feature.name"> {{ feature.name }}</span> </td>
-            <td>{{ app.version | latestRelease }}</td>          
-            <td>{{ app.version | latestVersion }}</td>
+            <td>{{ app.version.date | latestRelease }}</td>          
+            <td>{{ app.version.number }}</td>
           </tr>
         </tbody>
       </template>
@@ -69,16 +69,9 @@ export default {
   },
 
   filters: {
-    latestVersion: function(array) {
-      if(array && array.length != 0) {
-        return array[array.length-1].number;
-      }
-    },
-    latestRelease : function(array) {
-      if(array && array.length != 0) {
-        const date = array[array.length-1].date;
-        return moment(date).format('MM/DD/YYYY');
-      }
+    latestRelease : function(date) {
+      
+      return moment(date).format('MM/DD/YYYY');
     }
   }
   

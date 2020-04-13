@@ -7,11 +7,8 @@
 
       <v-toolbar-title>{{appinfoform_action}}</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon class="hidden-xs-only">
+      <v-btn icon class="hidden-xs-only" @click="save()">
         <v-icon>mdi-content-save-outline</v-icon>
-      </v-btn>
-      <v-btn icon class="hidden-xs-only">
-        <v-icon>mdi-cancel</v-icon>
       </v-btn>
     </v-toolbar>
 
@@ -105,6 +102,7 @@ export default {
         this.updateApplication(this.$route.params.id);
       else
         this.addApplication();
+      this.$router.push({name: 'Home'});
     },
   },
   created() {

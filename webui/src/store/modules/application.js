@@ -100,7 +100,7 @@ const mutations = {
   searchApplication: (state, searchTerm) =>  {
     (state.filteredApplications = state.applications.filter(application => {
       const jsonstring = getAllPropertyValues(application).toUpperCase();
-      console.log(searchTerm + " --> " + jsonstring);
+      // console.log(searchTerm + " --> " + jsonstring);
       return jsonstring.indexOf(searchTerm.toUpperCase()) !== -1;
     }))
   },

@@ -138,6 +138,9 @@ export default {
         this.description = this.app_info.description;
       }
     }
+  },
+  filters: {
+    
   }
 }
 </script>
