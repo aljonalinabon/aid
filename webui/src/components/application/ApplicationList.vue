@@ -18,8 +18,8 @@
             <td>{{ app.customer_name }}</td>
             <td>{{ app.sales_company }}</td>          
             <td> <span class="feature-item" v-for="feature in app.features" :key="feature.name"> {{ feature.name }}</span> </td>
-            <td>{{ app.version.date | latestRelease }}</td>          
-            <td>{{ app.version.number }}</td>
+            <td> <span v-if="app.version.date">{{ app.version.date | latestRelease }}</span> </td>          
+            <td> <span v-if="app.version.number">{{ app.version.number }}</span> </td>
           </tr>
         </tbody>
       </template>
