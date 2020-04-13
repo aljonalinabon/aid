@@ -2,7 +2,6 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 import AppInfoForm from '../components/application/AppInfoForm';
-import AppInfoView from '../components/application/AppInfoView';
 
 Vue.use(VueRouter)
 
@@ -14,20 +13,13 @@ const routes = [
   },
   {
     path: '/application',
-    name: 'AppInfoForm',
-    component: AppInfoForm,
-    // children: [
-    //   {
-    //     path: '/:id',
-    //     name: 'ApplicationInfo',
-    //     component: AppInfoForm
-    //   }
-    // ]
+    name: 'AddAppInfo',
+    component: AppInfoForm
   },
   {
-    path: '/applicationinfo',
-    name: 'Application',
-    component: AppInfoView,
+    path: '/editapplication/:id',
+    name: 'EditAppInfo',
+    component: AppInfoForm
   },
   {
     path: '/about',
@@ -45,7 +37,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  // mode: 'history',
+  mode: 'history',
   routes
 })
 

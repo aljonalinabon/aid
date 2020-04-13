@@ -33,7 +33,7 @@ export default {
   methods: {
     ...mapActions(['searchApplication']),
     gotoAddApplication(){
-      this.$router.push({name: 'AppInfoForm'});
+      this.$router.push({name: 'AddAppInfo'});
     }
   }
 }

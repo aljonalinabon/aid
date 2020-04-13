@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Basic Information</h1>
-    <form @change="input_form($event)">
+    <form @input="input_form($event)">
       <v-container>
         <v-row>
           
@@ -89,6 +89,7 @@ import { mapActions } from 'vuex'
 
 export default {
   name: 'BasicInformation',
+  props: ['app_info', 'to_edit'],
   data: () => ({
     name: '',
     project_name: '',
@@ -117,6 +118,25 @@ export default {
         description: this.description
       };
       this.updateAppForm(newApp);
+    }
+  },
+  created() {
+    console.log("to edit? " + this.to_edit);
+  },
+  watch: {
+    app_info() { 
+      if(this.to_edit && this.app_info) {
+        this.name = this.app_info.name;
+        this.project_name = this.app_info.project_name;
+        this.project_type = this.app_info.project_type;
+        this.version = this.app_info.version;
+        this.base_application = this.app_info.base_application;
+        this.sales_company = this.app_info.sales_company;
+        this.customer_name = this.app_info.customer_name;
+        this.dev_status = this.app_info.dev_status;
+        this.dev_remarks = this.app_info.dev_remarks;
+        this.description = this.app_info.description;
+      }
     }
   }
 }

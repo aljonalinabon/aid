@@ -24,6 +24,14 @@ const actions = {
     commit('setApplications', response.data);
   },
   
+  async fetchApplication({ commit }, id) {
+    const response = await axios.get(
+      `http://localhost:5000/api/applications/${id}`
+    );
+
+    commit('getApplication', response.data);
+  },
+
   async addApplication({ commit }) {
     const response = await axios.post(
       'http://localhost:5000/api/applications',
@@ -33,6 +41,16 @@ const actions = {
     commit('newApplication', response.data);
   },
 
+  async updateApplication({ commit }, id) {
+    const response = await axios.put(
+      `http://localhost:5000/api/applications/${id}`,
+      state.application
+    );
+
+    console.log(response.data);
+
+    commit('updateTodo', response.data);
+  },
 
   // async deleteTodo({ commit }, id) {
   //   await axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`);
@@ -53,20 +71,12 @@ const actions = {
 
   //   commit('setTodos', response.data);
   // },
-  // async updateTodo({ commit }, updTodo) {
-  //   const response = await axios.put(
-  //     `https://jsonplaceholder.typicode.com/todos/${updTodo.id}`,
-  //     updTodo
-  //   );
 
-  //   console.log(response.data);
-
-  //   commit('updateTodo', response.data);
-  // }
   
   async searchApplication({ commit }, searchTerm) {
     commit('searchApplication', searchTerm);
   },
+
   async updateAppForm({ commit }, app_info) {
     // console.log(app_info);
     commit('updateAppForm', app_info);
@@ -78,7 +88,11 @@ const mutations = {
     state.applications = applications;
     state.filteredApplications = applications;
   },
-  
+
+  getApplication: (state, application) => {
+    state.application = application
+  },
+
   newApplication: (state, application) => state.applications.unshift(application),
 
   updateAppForm: (state, application) => state.application = collateAppInfo(application),
@@ -89,15 +103,17 @@ const mutations = {
       console.log(searchTerm + " --> " + jsonstring);
       return jsonstring.indexOf(searchTerm.toUpperCase()) !== -1;
     }))
-  }
+  },
+
   // removeTodo: (state, id) =>
   //   (state.todos = state.todos.filter(todo => todo.id !== id)),
-  // updateTodo: (state, updTodo) => {
-  //   const index = state.todos.findIndex(todo => todo.id === updTodo.id);
-  //   if (index !== -1) {
-  //     state.todos.splice(index, 1, updTodo);
-  //   }
-  // }
+
+  updateApplication: () => {
+    // const index = state.applications.findIndex(a => todo.id === updTodo.id);
+    // if (index !== -1) {
+    //   state.todos.splice(index, 1, updTodo);
+    // }
+  }
 };
 
 function getAllPropertyValues(application_information) {

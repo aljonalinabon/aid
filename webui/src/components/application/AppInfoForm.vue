@@ -25,7 +25,7 @@
 
       <v-tabs-items v-model="tab" style="padding-top: 30px">
         <v-tab-item>
-          <v-card flat> <BasicInformation /> </v-card>
+          <v-card flat> <BasicInformation :to_edit="to_edit" :app_info="app_info"/> </v-card>
         </v-tab-item>
         
         <v-tab-item>
@@ -64,7 +64,8 @@ import Features from './applicationform/4_Features'
 import Functions from './applicationform/5_Functions'
 import TargetDevices from './applicationform/6_TargetDevice'
 import Others from './applicationform/7_Others'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
+
 
 export default {
   name: 'AppInfoForm',
@@ -78,6 +79,8 @@ export default {
   },
   data () {
     return {
+      to_edit: false,
+      app_info: {},
       application_information: {},
       appinfoform_action: 'Add application',
       tab: null,
@@ -91,13 +94,25 @@ export default {
       ]
     }
   },
+  computed: mapGetters(['application']),
   methods: {
-    ...mapActions(['addApplication']),
+    ...mapActions(['addApplication', 'fetchApplication', 'updateApplication']),
     goToHome() {
       this.$router.push({name: 'Home'});
     },
     save() {
-      this.addApplication();
+      if (this.to_edit) 
+        this.updateApplication(this.$route.params.id);
+      else
+        this.addApplication();
+    },
+  },
+  created() {
+    if(this.$route.name === "EditAppInfo" && this.$route.params.id !== ''){
+      this.to_edit = true;
+      this.fetchApplication(this.$route.params.id).then(
+        () => { this.app_info = this.application[0], console.log("~~" , this.app_info) } 
+      );
     }
   }
 }
