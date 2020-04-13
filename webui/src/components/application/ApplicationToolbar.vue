@@ -7,6 +7,8 @@
           outlined
           label="Search applications..."
           prepend-inner-icon="mdi-magnify"
+          v-model="searchTerm"
+          @input="searchApplication"
         ></v-text-field>
         <v-btn 
           style="margin: 10px;" primary @click="gotoAddApplication">
@@ -19,9 +21,17 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'SearchApplication',
+  data() {
+    return {
+      searchTerm: ''
+    }
+  },
   methods: {
+    ...mapActions(['searchApplication']),
     gotoAddApplication(){
       this.$router.push({name: 'AppInfoForm'});
     }

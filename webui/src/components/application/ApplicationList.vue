@@ -13,7 +13,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="app in allApplications" :key="app.name" @click.stop="openAppInfoDialog(app)">
+          <tr v-for="app in filteredApplications" :key="app.name" @click.stop="openAppInfoDialog(app)">
             <td>{{ app.name }}</td>
             <td>{{ app.customer_name }}</td>
             <td>{{ app.sales_company }}</td>          
@@ -62,7 +62,7 @@ export default {
     }
   },
 
-  computed: mapGetters(['allApplications']),
+  computed: mapGetters(['filteredApplications']),
 
   created() {
     this.fetchApplications();
