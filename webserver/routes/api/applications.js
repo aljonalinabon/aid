@@ -15,13 +15,24 @@ router.get('/:id', (req, res) => {
 router.get('/', (req, res) => res.json(applications)); 
 
 router.post('/', (req, res) => {
+  console.log(req.body);
+  // const references = [...req.body.references];
+
   const newApplication = {
     id: uuid.v4(),
     name: req.body.name,
+    project_name: req.body.project_name,
+    project_type: req.body.project_type,
+    version: req.body.version,
+    description: req.body.description,
+    sales_company: req.body.sales_company,
+    customer_name: req.body.customer_name,
+    dev_status: req.body.dev_status,
+    dev_remarks: req.body.dev_remarks
   }
 
   if(!newApplication.name) {
-    return res.status(400).json({msg: 'Please include name and email.'});
+    return res.status(400).json({msg: 'Please include name'});
   }
 
   applications.push(newApplication);

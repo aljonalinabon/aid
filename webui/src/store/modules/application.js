@@ -1,11 +1,14 @@
 import axios from 'axios'
+import defaultapp from '../../../defaults/appinfo'
 
 const state = {
-  applications: []
+  applications: [],
+  application: {}
 };
 
 const getters = {
-  allApplications: state => state.applications
+  allApplications: state => state.applications,
+  application: state => state.application
 };
 
 const actions = {
@@ -17,14 +20,15 @@ const actions = {
     commit('setApplications', response.data);
   },
   
-  async addApplication({ commit }, app_info) {
+  async addApplication({ commit }) {
     const response = await axios.post(
       'http://localhost:5000/api/applications',
-      app_info
+      state.application
     );
 
-    commit('newTodo', response.data);
+    commit('newApplication', response.data);
   },
+
   // async deleteTodo({ commit }, id) {
   //   await axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`);
 
@@ -54,11 +58,16 @@ const actions = {
 
   //   commit('updateTodo', response.data);
   // }
+  async updateAppForm({ commit }, app_info) {
+    console.log(app_info);
+    commit('updateAppForm', app_info);
+  },
 };
 
 const mutations = {
   setApplications: (state, applications) => (state.applications = applications),
   newApplication: (state, application) => state.applications.unshift(application),
+  updateAppForm: (state, application) => state.application = collateAppInfo(application),
   // removeTodo: (state, id) =>
   //   (state.todos = state.todos.filter(todo => todo.id !== id)),
   // updateTodo: (state, updTodo) => {
@@ -68,6 +77,19 @@ const mutations = {
   //   }
   // }
 };
+
+function collateAppInfo(application) {
+  const application_information = {...defaultapp};
+  console.log("BEFORE: ", application_information);
+
+  for (const property in application_information) {
+    if(application[property])
+      application_information[property] = application[property];
+  }
+
+  console.log("AFTER: ", application_information);
+  return application_information;
+}
 
 export default {
   state,

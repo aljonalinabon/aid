@@ -38,15 +38,18 @@ import moment from 'moment'
 
 export default {
   name: 'ApplicationList',
+  
   components: {
     AppInfoView
   },
+
   data () {
     return {
       show_appinfo_dialog : false,
       app_info: {}
     }
   },
+
   methods: {
     ...mapActions(['fetchApplications']),
     openAppInfoDialog(app_info) {
@@ -58,23 +61,27 @@ export default {
       this.show_appinfo_dialog = value;
     }
   },
+
   computed: mapGetters(['allApplications']),
+
   created() {
     this.fetchApplications();
   },
+
   filters: {
     latestVersion: function(array) {
-      if(array || array.length != 0) {
+      if(array && array.length != 0) {
         return array[array.length-1].number;
       }
     },
     latestRelease : function(array) {
-      if(array || array.length != 0) {
+      if(array && array.length != 0) {
         const date = array[array.length-1].date;
         return moment(date).format('MM/DD/YYYY');
       }
     }
   }
+  
 }
 </script>
 
